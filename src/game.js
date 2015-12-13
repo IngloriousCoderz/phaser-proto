@@ -5,7 +5,7 @@ window.onload = function() {
     update: update
   });
 
-  var player, cursors;
+  var player, cursors, stars, score = 0, scoreText;
 
   function preload() {
     game.load.image('sky', 'assets/sky.png');
@@ -41,10 +41,22 @@ window.onload = function() {
     player.animations.add('right', [5, 6, 7, 8], 10, true);
 
     cursors = game.input.keyboard.createCursorKeys();
+
+    stars = game.add.group();
+    stars.enableBody = true;
+    for (var i = 0; i < 12; i++) {
+      var star = stars.create(i * 70, 0, 'star');
+      star.body.gravity.y = 6;
+      star.body.bounce.y = 0.7 + Math.random() * 0.2;
+    }
+
+    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
   }
 
   function update() {
     game.physics.arcade.collide(player, platforms);
+    game.physics.arcade.collide(stars, platforms);
+    game.physics.arcade.overlap(player, stars, collectStar, null, this);
 
     player.body.velocity.x = 0;
 
@@ -62,5 +74,11 @@ window.onload = function() {
     if (cursors.up.isDown && player.body.touching.down) {
       player.body.velocity.y = -350;
     }
+  }
+
+  function collectStar(player, star) {
+    star.kill();
+    score += 10;
+    scoreText.text = 'score: ' + score;
   }
 };
