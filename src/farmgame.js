@@ -1,17 +1,21 @@
 window.onload = function () {
-    var game, animalNames, cursors, animals, score, scoreText;
+    var game, animalNames, foodNames, cursors, animals, food, score, scoreText;
     game = new Phaser.Game(320, 480, Phaser.AUTO, '', {
         preload: preload,
         create: create,
         update: update
     });
     animalNames = ['cow', 'sheep', 'horse', 'chicken'];
+    foodNames = ['flower', 'grass', 'carrot', 'worm'];
     score = 0;
     function preload() {
         game.load.image('sky', 'assets/sky.png');
         game.load.image('star', 'assets/star.png');
         for (var i = 0; i < animalNames.length; i++) {
             game.load.image(animalNames[i], 'assets/animals/' + animalNames[i] + '.png');
+        }
+        for (var i = 0; i < foodNames.length; i++) {
+            game.load.image(foodNames[i], 'assets/food/' + foodNames[i] + '.png');
         }
     }
     function create() {
@@ -21,7 +25,11 @@ window.onload = function () {
         var hOffset = 16;
         var vOffset = game.world.height - 64 - 16;
         for (var i = 0; i < animalNames.length; i++) {
-            animals.create(8 + i * hOffset + i * 64, vOffset, animalNames[i]);
+            animals.create(8 + i * (hOffset + 64), vOffset, animalNames[i]);
+        }
+        food = game.add.group();
+        for (var i = 0; i < foodNames.length; i++) {
+            food.create(8 + i * (hOffset + 64), 64, foodNames[i]);
         }
         cursors = game.input.keyboard.createCursorKeys();
         scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
