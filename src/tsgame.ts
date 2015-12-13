@@ -1,11 +1,21 @@
+/// <reference path="../bower_components/phaser/typescript/phaser.d.ts" />
+
 window.onload = function() {
-  var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
+  var game: Phaser.Game,
+    platforms: Phaser.Group,
+    player: Phaser.Sprite,
+    cursors: Phaser.CursorKeys,
+    stars: Phaser.Group,
+    score: number,
+    scoreText: Phaser.Text;
+
+  game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
     preload: preload,
     create: create,
     update: update
   });
 
-  var platforms, player, cursors, stars, score = 0, scoreText;
+  score = 0;
 
   function preload() {
     game.load.image('sky', 'assets/sky.png');
