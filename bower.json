@@ -1,0 +1,21 @@
+{
+  "name": "phaser-proto",
+  "homepage": "https://github.com/IngloriousCoderz/phaser-proto",
+  "authors": [
+    "IceOnFire <antony.mistretta@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "phaser": "~2.4.4"
+  }
+}
