@@ -21,6 +21,8 @@ window.onload = function() {
   score = 0;
 
   function preload() {
+    // game.renderer.renderSession.roundPixels = true;
+
     game.load.image('sky', 'assets/sky.png');
     game.load.image('star', 'assets/star.png');
     for (var i = 0; i < animalNames.length; i++) {
