@@ -1,8 +1,7 @@
 module FarmGame {
   export var config = {
     animals: ['cow', 'sheep', 'horse', 'chicken'],
-    foods: ['flower', 'grass', 'carrot', 'worm'],
-    score: 0
+    foods: ['flower', 'grass', 'carrot', 'worm']
   };
 
   export class Boot extends Phaser.State {

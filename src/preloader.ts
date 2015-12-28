@@ -6,8 +6,7 @@ module FarmGame {
       this.preloadBar = this.add.sprite(200, 250, 'preloadBar');
       this.load.setPreloadSprite(this.preloadBar);
 
-      this.game.load.image('sky', 'assets/sky.png');
-      this.game.load.image('star', 'assets/star.png');
+      this.game.load.image('bg', 'assets/bg.png');
       for (var i = 0; i < config.animals.length; i++) {
         this.game.load.image(config.animals[i], 'assets/animals/' + config.animals[i] + '.png');
       }
