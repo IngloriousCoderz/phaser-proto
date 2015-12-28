@@ -5,16 +5,17 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var FarmGame;
 (function (FarmGame) {
-    var circle, point, angle, cursors;
+    var circle, angle, animating, cursors;
     var Animals = (function (_super) {
         __extends(Animals, _super);
         function Animals(game, x, y) {
             _super.call(this, game);
             var radius = game.world.centerX / 2;
             angle = 2 * Math.PI / FarmGame.config.animals.length;
+            animating = false;
             this.position = new Phaser.Point(x + radius / 2, y);
             this.pivot = this.position;
-            point = new Phaser.Point(this.position.x + radius, this.position.y);
+            var point = new Phaser.Point(this.position.x + radius, this.position.y);
             point.rotate(this.position.x, this.position.y, Math.PI / 6);
             for (var i = 0; i < FarmGame.config.animals.length; i++) {
                 point.rotate(this.position.x, this.position.y, angle);
@@ -28,18 +29,23 @@ var FarmGame;
         }
         Animals.prototype.update = function () {
             var circle = this.position;
-            if (cursors.left.isDown) {
-                this.game.add.tween(this).to({ rotation: this.rotation - angle }, 500, Phaser.Easing.Linear.None, true);
+            if (cursors.left.isDown && !animating) {
+                animating = true;
+                this.game.add.tween(this).to({ rotation: this.rotation - angle }, 500, Phaser.Easing.Linear.None, true).onComplete.add(this.onTweenComplete, this);
                 this.forEach(function (animal) {
-                    this.game.add.tween(animal).to({ rotation: animal.rotation + angle }, 500, Phaser.Easing.Linear.None, true);
+                    this.game.add.tween(animal).to({ rotation: animal.rotation + angle }, 500, Phaser.Easing.Linear.None, true).onComplete.add(this.onTweenComplete, this);
                 }, this);
             }
-            else if (cursors.right.isDown) {
-                this.game.add.tween(this).to({ rotation: this.rotation + angle }, 500, Phaser.Easing.Linear.None, true);
+            else if (cursors.right.isDown && !animating) {
+                animating = true;
+                this.game.add.tween(this).to({ rotation: this.rotation + angle }, 500, Phaser.Easing.Linear.None, true).onComplete.add(this.onTweenComplete, this);
                 this.forEach(function (animal) {
-                    this.game.add.tween(animal).to({ rotation: animal.rotation - angle }, 500, Phaser.Easing.Linear.None, true);
+                    this.game.add.tween(animal).to({ rotation: animal.rotation - angle }, 500, Phaser.Easing.Linear.None, true).onComplete.add(this.onTweenComplete, this);
                 }, this);
             }
+        };
+        Animals.prototype.onTweenComplete = function () {
+            animating = false;
         };
         return Animals;
     })(Phaser.Group);

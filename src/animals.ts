@@ -1,7 +1,7 @@
 module FarmGame {
   var circle: Phaser.Circle,
-    point: Phaser.Point,
     angle: number,
+    animating: boolean,
     cursors: Phaser.CursorKeys;
 
   export class Animals extends Phaser.Group {
@@ -10,13 +10,13 @@ module FarmGame {
 
       var radius = game.world.centerX / 2;
       angle = 2 * Math.PI / config.animals.length;
+      animating = false;
 
       this.position = new Phaser.Point(x + radius / 2, y);
       this.pivot = this.position;
 
-      point = new Phaser.Point(this.position.x + radius, this.position.y);
+      var point: Phaser.Point = new Phaser.Point(this.position.x + radius, this.position.y);
       point.rotate(this.position.x, this.position.y, Math.PI / 6);
-
       for (var i = 0; i < config.animals.length; i++) {
         point.rotate(this.position.x, this.position.y, angle);
         this.create(point.x, point.y, config.animals[i]);
@@ -32,17 +32,23 @@ module FarmGame {
 
     update() {
       var circle = this.position;
-      if (cursors.left.isDown) {
-        this.game.add.tween(this).to({rotation: this.rotation - angle}, 500, Phaser.Easing.Linear.None, true);
+      if (cursors.left.isDown && !animating) {
+        animating = true;
+        this.game.add.tween(this).to({rotation: this.rotation - angle}, 500, Phaser.Easing.Linear.None, true).onComplete.add(this.onTweenComplete, this);
         this.forEach(function(animal: Phaser.Sprite) {
-          this.game.add.tween(animal).to({rotation: animal.rotation + angle}, 500, Phaser.Easing.Linear.None, true);
+          this.game.add.tween(animal).to({rotation: animal.rotation + angle}, 500, Phaser.Easing.Linear.None, true).onComplete.add(this.onTweenComplete, this);
         }, this);
-      } else if (cursors.right.isDown) {
-        this.game.add.tween(this).to({rotation: this.rotation + angle}, 500, Phaser.Easing.Linear.None, true);
+      } else if (cursors.right.isDown && !animating) {
+        animating = true;
+        this.game.add.tween(this).to({rotation: this.rotation + angle}, 500, Phaser.Easing.Linear.None, true).onComplete.add(this.onTweenComplete, this);
         this.forEach(function(animal: Phaser.Sprite) {
-          this.game.add.tween(animal).to({rotation: animal.rotation - angle}, 500, Phaser.Easing.Linear.None, true);
+          this.game.add.tween(animal).to({rotation: animal.rotation - angle}, 500, Phaser.Easing.Linear.None, true).onComplete.add(this.onTweenComplete, this);
         }, this);
       }
+    }
+
+    onTweenComplete() {
+      animating = false;
     }
   }
 }
