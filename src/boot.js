@@ -6,7 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var FarmGame;
 (function (FarmGame) {
     FarmGame.config = {
-        animals: ['cow', 'sheep', 'horse', 'chicken'],
+        animals: ['cow', 'sheep', 'horse', 'chicken', 'cow', 'sheep', 'horse', 'chicken'],
         food: ['flower', 'grass', 'carrot', 'worm'],
         food2animals: {
             'flower': 'cow',

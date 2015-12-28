@@ -1,6 +1,6 @@
 module FarmGame {
   export var config = {
-    animals: ['cow', 'sheep', 'horse', 'chicken'],
+    animals: ['cow', 'sheep', 'horse', 'chicken', 'cow', 'sheep', 'horse', 'chicken'],
     food: ['flower', 'grass', 'carrot', 'worm'],
     food2animals: {
       'flower': 'cow',

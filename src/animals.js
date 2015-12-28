@@ -11,13 +11,13 @@ var FarmGame;
         __extends(Animals, _super);
         function Animals(game, x, y) {
             _super.call(this, game);
-            var radius = game.world.centerX / 2;
+            var radius = 20 * FarmGame.config.animals.length;
             angle = 2 * Math.PI / FarmGame.config.animals.length;
             animating = false;
-            this.position = new Phaser.Point(x + radius / 2, y - 10);
+            this.position = new Phaser.Point(x + radius, y - 64);
             this.pivot = this.position;
             var point = new Phaser.Point(this.position.x + radius, this.position.y);
-            point.rotate(this.position.x, this.position.y, Math.PI / 4);
+            point.rotate(this.position.x, this.position.y, Math.PI - angle);
             for (var i = 0; i < FarmGame.config.animals.length; i++) {
                 point.rotate(this.position.x, this.position.y, angle);
                 var animal = this.game.add.sprite(point.x, point.y, FarmGame.config.animals[i], 0, this);
@@ -26,7 +26,7 @@ var FarmGame;
                 animal.animations.play('chew');
             }
             this.setAll('anchor', { x: 0.5, y: 0.5 });
-            current = 1;
+            current = 0;
             this.selectAnimal(current, false);
             cursors = this.game.input.keyboard.createCursorKeys();
             game.add.existing(this);
@@ -46,12 +46,20 @@ var FarmGame;
             this.forEach(function (animal) {
                 this.game.add.tween(animal).to({ rotation: animal.rotation + direction * angle }, 500, Phaser.Easing.Linear.None, true);
             }, this);
-            this.selectAnimal(current);
+            this.selectAnimal(current, true);
         };
         Animals.prototype.selectAnimal = function (index, animated) {
-            this.setAll('alpha', 0.5);
-            this.setAll('scale.x', 1.5);
-            this.setAll('scale.y', 1.5);
+            if (animated) {
+                this.forEach(function (animal) {
+                    this.game.add.tween(animal).to({ alpha: 0.5 }, 500, Phaser.Easing.Linear.None, true);
+                    this.game.add.tween(animal.scale).to({ x: 1.5, y: 1.5 }, 500, Phaser.Easing.Linear.None, true);
+                }, this);
+            }
+            else {
+                this.setAll('alpha', 0.5);
+                this.setAll('scale.x', 1.5);
+                this.setAll('scale.y', 1.5);
+            }
             index = modulo(index, FarmGame.config.animals.length);
             var animal = this.getChildAt(index);
             if (animated) {
