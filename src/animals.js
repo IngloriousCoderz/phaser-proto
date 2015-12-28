@@ -14,13 +14,15 @@ var FarmGame;
             var radius = 20 * FarmGame.config.animals.length;
             angle = 2 * Math.PI / FarmGame.config.animals.length;
             animating = false;
-            this.position = new Phaser.Point(x + radius, y - 64);
+            this.rotation = Math.PI / FarmGame.config.animals.length;
+            this.position = new Phaser.Point(x + radius, y);
             this.pivot = this.position;
             var point = new Phaser.Point(this.position.x + radius, this.position.y);
             point.rotate(this.position.x, this.position.y, Math.PI - angle);
             for (var i = 0; i < FarmGame.config.animals.length; i++) {
                 point.rotate(this.position.x, this.position.y, angle);
                 var animal = this.game.add.sprite(point.x, point.y, FarmGame.config.animals[i], 0, this);
+                animal.rotation = -angle / 2;
                 this.game.physics.arcade.enable(animal);
                 animal.animations.add('chew', [1, 2, 3, 2], 10, true);
                 animal.animations.play('chew');

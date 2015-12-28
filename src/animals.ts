@@ -15,7 +15,10 @@ module FarmGame {
       angle = 2 * Math.PI / config.animals.length;
       animating = false;
 
-      this.position = new Phaser.Point(x + radius, y - 64);
+      // this.pivot = new Phaser.Point(x, y);
+      this.rotation = Math.PI / config.animals.length;
+
+      this.position = new Phaser.Point(x + radius, y);
       this.pivot = this.position;
 
       var point: Phaser.Point = new Phaser.Point(this.position.x + radius, this.position.y);
@@ -23,6 +26,7 @@ module FarmGame {
       for (var i = 0; i < config.animals.length; i++) {
         point.rotate(this.position.x, this.position.y, angle);
         var animal = this.game.add.sprite(point.x, point.y, config.animals[i], 0, this);
+        animal.rotation = -angle / 2;
         this.game.physics.arcade.enable(animal);
         animal.animations.add('chew', [1, 2, 3, 2], 10, true);
         animal.animations.play('chew');
