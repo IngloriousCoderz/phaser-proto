@@ -9,6 +9,7 @@ module FarmGame {
       this.load.setPreloadSprite(this.preloadBar);
 
       this.game.load.image('bg', 'assets/bg320.png');
+      this.game.load.audio('music', 'assets/music.mp3', true);
 
       for (var i = 0; i < config.food.length; i++) {
         this.game.load.image(config.food[i], 'assets/food/' + config.food[i] + '.png');

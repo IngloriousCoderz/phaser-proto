@@ -16,6 +16,8 @@ var FarmGame;
         };
         Main.prototype.create = function () {
             var bg = this.game.add.sprite(0, 0, 'bg');
+            var music = this.add.audio('music', 1, true);
+            music.play();
             var hOffset = 16;
             food = this.game.add.group();
             for (var i = 0; i < FarmGame.config.food.length; i++) {
