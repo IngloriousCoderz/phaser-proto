@@ -3,9 +3,9 @@ module FarmGame {
     preloadBar: Phaser.Sprite;
 
     preload() {
-      this.preloadBar = this.add.sprite(this.world.centerX - 100, this.world.centerY, 'preloadBar');
+      this.preloadBar = this.add.sprite(this.world.centerX, this.world.centerY, 'preloadBar');
       this.preloadBar.anchor = new Phaser.Point(0.5, 0.5);
-      this.preloadBar.scale = new Phaser.Point(0.5, 0.5);
+      this.preloadBar.scale = new Phaser.Point(0.75, 0.75);
       this.load.setPreloadSprite(this.preloadBar);
 
       this.game.load.image('bg', 'assets/bg320.png');
@@ -15,7 +15,7 @@ module FarmGame {
       }
 
       for (var i = 0; i < config.animals.length; i++) {
-        this.game.load.image(config.animals[i], 'assets/animals/' + config.animals[i] + '.png');
+        this.game.load.spritesheet(config.animals[i], 'assets/animals/' + config.animals[i] + '.png', 64, 64);
       }
     }
 
