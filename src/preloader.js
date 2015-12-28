@@ -11,14 +11,16 @@ var FarmGame;
             _super.apply(this, arguments);
         }
         Preloader.prototype.preload = function () {
-            this.preloadBar = this.add.sprite(200, 250, 'preloadBar');
+            this.preloadBar = this.add.sprite(this.world.centerX - 100, this.world.centerY, 'preloadBar');
+            this.preloadBar.anchor = new Phaser.Point(0.5, 0.5);
+            this.preloadBar.scale = new Phaser.Point(0.5, 0.5);
             this.load.setPreloadSprite(this.preloadBar);
-            this.game.load.image('bg', 'assets/bg.png');
+            this.game.load.image('bg', 'assets/bg320.png');
+            for (var i = 0; i < FarmGame.config.food.length; i++) {
+                this.game.load.image(FarmGame.config.food[i], 'assets/food/' + FarmGame.config.food[i] + '.png');
+            }
             for (var i = 0; i < FarmGame.config.animals.length; i++) {
                 this.game.load.image(FarmGame.config.animals[i], 'assets/animals/' + FarmGame.config.animals[i] + '.png');
-            }
-            for (var i = 0; i < FarmGame.config.foods.length; i++) {
-                this.game.load.image(FarmGame.config.foods[i], 'assets/food/' + FarmGame.config.foods[i] + '.png');
             }
         };
         Preloader.prototype.create = function () {

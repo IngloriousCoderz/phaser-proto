@@ -7,7 +7,13 @@ var FarmGame;
 (function (FarmGame) {
     FarmGame.config = {
         animals: ['cow', 'sheep', 'horse', 'chicken'],
-        foods: ['flower', 'grass', 'carrot', 'worm']
+        food: ['flower', 'grass', 'carrot', 'worm'],
+        food2animals: {
+            'flower': 'cow',
+            'grass': 'sheep',
+            'carrot': 'horse',
+            'worm': 'chicken'
+        }
     };
     var Boot = (function (_super) {
         __extends(Boot, _super);
