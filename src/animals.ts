@@ -29,7 +29,7 @@ module FarmGame {
         animal.rotation = -angle / 2;
         this.game.physics.arcade.enable(animal);
         animal.animations.add('chew', [1, 2, 3, 2], 10, true);
-        animal.animations.play('chew');
+        // animal.animations.play('chew');
         // this.create(point.x, point.y, config.animals[i], 0);
       }
       this.setAll('anchor', { x: 0.5, y: 0.5 });

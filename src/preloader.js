@@ -16,7 +16,6 @@ var FarmGame;
             this.preloadBar.scale = new Phaser.Point(0.75, 0.75);
             this.load.setPreloadSprite(this.preloadBar);
             this.game.load.image('bg', 'assets/bg320.png');
-            this.game.load.audio('music', 'assets/music.mp3', true);
             for (var i = 0; i < FarmGame.config.food.length; i++) {
                 this.game.load.image(FarmGame.config.food[i], 'assets/food/' + FarmGame.config.food[i] + '.png');
             }
